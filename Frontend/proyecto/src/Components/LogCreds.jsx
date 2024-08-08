@@ -1,5 +1,5 @@
 import React from 'react';
-import './LogCreds.css';
+import '../Styles/LogCreds.css';
 
 function LogCreds() {
   const handleSubmit = (e) => {

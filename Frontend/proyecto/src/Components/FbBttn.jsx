@@ -1,5 +1,5 @@
 import React from 'react';
-import './FbBttn.css';
+import '../Styles/FbBttn.css';
 import { FaFacebookF } from 'react-icons/fa';
 
 function FbBttn() {

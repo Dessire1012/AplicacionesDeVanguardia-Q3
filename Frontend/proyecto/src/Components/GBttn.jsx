@@ -1,5 +1,5 @@
 import React from 'react';
-import './GBttn.css';
+import '../Styles/GBttn.css';
 import { FaGoogle } from 'react-icons/fa';
 
 function GBttn() {

@@ -1,23 +1,23 @@
-import '../Styles/Login.css'
+import React from 'react';
+import '../Styles/SignUp.css';
 import Cielo from '../Imagenes/Cielo.jpg';
-import LogCreds from '../Components/LogCreds';
 import FbBttn from '../Components/FbBttn';
 import GBttn from '../Components/GBttn';
 
-function Login() {
+function SignUp() {
     return (
         <div className="full-container">
             <div className="white-container">
                 <img src={Cielo}/>
-                <div className="overlay-container">
-                    <div className="login-title">
-                        <h1>Log In</h1>
+                <div className="overlay-container-sign">
+                    <div className="signin-title">
+                        <h1>Sign In</h1>
                     </div>
                     <div className="sub-title">
-                            <h1>Welcome Back!</h1>
+                            <h1>Enter your credentials</h1>
                     </div>
-                    <div className="logcreds-container">
-                            <LogCreds />
+                    <div className="signcreds-container">
+                        <h1>Enter your credentials</h1>
                     </div>
                     <div className="or-section">
                         <div className="line"></div>
@@ -29,13 +29,13 @@ function Login() {
                         <GBttn/>
                     </div>
                     <div className="sign-container">
-                        <p>New user?</p>
-                        <a href="signup">Sign Up</a>
+                        <p>Already have an account?</p>
+                        <a href="/">Log In</a>
                     </div>
                 </div>
             </div>
         </div>
       );
-  }
-  
-  export default Login;
+}
+
+export default SignUp;
