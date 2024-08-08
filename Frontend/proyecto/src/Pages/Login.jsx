@@ -1,6 +1,8 @@
 import './Login.css'
 import Cielo from '../Imagenes/Cielo.jpg';
 import LogCreds from '../Components/LogCreds';
+import FbBttn from '../Components/FbBttn';
+import GBttn from '../Components/GBttn';
 
 function Login() {
     return (
@@ -16,6 +18,13 @@ function Login() {
                     </div>
                     <div className="logcreds-container">
                             <LogCreds />
+                    </div>
+                    <div className="or-section">
+                        <p>Or</p>
+                    </div>
+                    <div className="socialmedia-container">
+                        <FbBttn/>
+                        <GBttn/>
                     </div>
                 </div>
             </div>

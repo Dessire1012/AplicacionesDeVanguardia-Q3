@@ -16,9 +16,6 @@ function LogCreds() {
           placeholder="Enter email"
           className="input"
         />
-        <small className="text-muted">
-          We'll never share your email with anyone else.
-        </small>
       </div>
 
       <div className="form-group">
