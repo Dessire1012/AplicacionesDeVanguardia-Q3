@@ -20,11 +20,17 @@ function Login() {
                             <LogCreds />
                     </div>
                     <div className="or-section">
-                        <p>Or</p>
+                        <div className="line"></div>
+                            <p>Or</p>
+                        <div className="line"></div>
                     </div>
                     <div className="socialmedia-container">
                         <FbBttn/>
                         <GBttn/>
+                    </div>
+                    <div className="sign-container">
+                        <p>New user?</p>
+                        <a href="#">Sign Up</a>
                     </div>
                 </div>
             </div>
