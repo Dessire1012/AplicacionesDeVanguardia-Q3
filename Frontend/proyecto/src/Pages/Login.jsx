@@ -1,4 +1,4 @@
-import '../Styles/Login.css'
+import './Styles/Login.css'
 import Cielo from '../Imagenes/Cielo.jpg';
 import LogCreds from '../Components/LogCreds';
 import FbBttn from '../Components/FbBttn';
@@ -8,7 +8,7 @@ function Login() {
     return (
         <div className="full-container">
             <div className="white-container">
-                <img src={Cielo}/>
+                <img src={Cielo} alt=""/>
                 <div className="overlay-container">
                     <div className="login-title">
                         <h1>Log In</h1>

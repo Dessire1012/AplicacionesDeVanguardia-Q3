@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Styles/SignCreds.css';
+import './Styles/SignCreds.css';
 
 function SignCreds() {
   const handleSubmit = (e) => {

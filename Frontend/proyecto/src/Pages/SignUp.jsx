@@ -1,4 +1,4 @@
-import '../Styles/SignUp.css';
+import './Styles/SignUp.css';
 import Cielo from '../Imagenes/Cielo.jpg';
 import SignCreds from '../Components/SignCreds';
 import FbBttn from '../Components/FbBttn';
@@ -8,7 +8,7 @@ function SignUp() {
     return (
         <div className="full-container">
             <div className="white-container">
-                <img src={Cielo}/>
+                <img src={Cielo} alt=""/>
                 <div className="overlay-container-sign">
                     <div className="signin-title">
                         <h1>Sign In</h1>
