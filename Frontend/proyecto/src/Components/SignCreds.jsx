@@ -1,7 +1,7 @@
 import React from 'react';
-import '../Styles/LogCreds.css';
+import '../Styles/SignCreds.css';
 
-function LogCreds() {
+function SignCreds() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -9,7 +9,7 @@ function LogCreds() {
   return (
     <form onSubmit={handleSubmit} className="form">
       <div className="form-group">
-        <label htmlFor="name" className="label">User name</label>
+        <label htmlFor="name" className="label">Name</label>
         <input
           type="name"
           id="name"
@@ -17,7 +17,15 @@ function LogCreds() {
           className="input"
         />
       </div>
-
+      <div className="form-group">
+        <label htmlFor="email" className="label">Email address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter email"
+          className="input"
+        />
+      </div>
       <div className="form-group">
         <label htmlFor="password" className="label">Password</label>
         <input
@@ -32,9 +40,9 @@ function LogCreds() {
         Sign In
       </button>
 
-      <a href="faceID">Use Face ID to Log In</a>
+      <a href="faceID">Use Face ID to Sign In</a>
     </form>
   );
 }
 
-export default LogCreds;
+export default SignCreds;

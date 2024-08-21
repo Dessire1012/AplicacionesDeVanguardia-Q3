@@ -1,6 +1,6 @@
-import React from 'react';
 import '../Styles/SignUp.css';
 import Cielo from '../Imagenes/Cielo.jpg';
+import SignCreds from '../Components/SignCreds';
 import FbBttn from '../Components/FbBttn';
 import GBttn from '../Components/GBttn';
 
@@ -16,8 +16,8 @@ function SignUp() {
                     <div className="sub-title">
                             <h1>Enter your credentials</h1>
                     </div>
-                    <div className="signcreds-container">
-                        <h1>Enter your credentials</h1>
+                    <div className="logcreds-container">
+                            <SignCreds />
                     </div>
                     <div className="or-section">
                         <div className="line"></div>
