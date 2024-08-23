@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Styles/Navbar.css';
-import { FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa'; // Importa los iconos necesarios
+import { FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa'; 
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

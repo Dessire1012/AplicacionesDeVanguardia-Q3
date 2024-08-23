@@ -33,14 +33,14 @@ const Chatbot = () => {
         <div className="chatbot-input">
           <div className="input-container">
             <span className="text-icon">T</span>
-            <input 
-              type="text" 
-              value={input} 
-              onChange={(e) => setInput(e.target.value)} 
-              placeholder="Type a message..." 
-              className="input-field" 
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type a message..."
+              className="input-field"
             />
-            <FaPaperPlane onClick={handleSend} className="icon send-icon" />
+            <FaPaperPlane className="icon send-icon" onClick={handleSend} />
             <FaEllipsisV className="icon options-icon" />
           </div>
         </div>
