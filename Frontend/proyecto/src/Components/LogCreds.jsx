@@ -1,5 +1,5 @@
-import React from 'react';
-import './Styles/LogCreds.css';
+import React from "react";
+import "./Styles/LogCreds.css";
 
 function LogCreds() {
   const handleSubmit = (e) => {
@@ -9,7 +9,9 @@ function LogCreds() {
   return (
     <form onSubmit={handleSubmit} className="form">
       <div className="form-group">
-        <label htmlFor="name" className="label">User name</label>
+        <label htmlFor="name" className="label">
+          User name
+        </label>
         <input
           type="name"
           id="name"
@@ -19,7 +21,9 @@ function LogCreds() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="password" className="label">Password</label>
+        <label htmlFor="password" className="label">
+          Password
+        </label>
         <input
           type="password"
           id="password"

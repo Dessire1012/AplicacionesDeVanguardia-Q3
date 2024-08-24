@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import './Styles/Chatbot.css';
-import { FaPaperPlane, FaEllipsisV } from 'react-icons/fa';
-import Navbar from '../Components/Navbar';
+import React, { useState } from "react";
+import "./Styles/Chatbot.css";
+import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
+import Navbar from "../Components/Navbar";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const handleSend = () => {
     if (input.trim()) {
       setMessages([...messages, { text: input, user: true }]);
-      setInput('');
+      setInput("");
       setTimeout(() => {
-        setMessages(prevMessages => [...prevMessages, { text: 'Bot response', user: false }]);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: "Bot response", user: false },
+        ]);
       }, 1000);
     }
   };
@@ -23,8 +26,11 @@ const Chatbot = () => {
       <div className="chatbot">
         <div className="chatbot-messages">
           {messages.map((msg, index) => (
-            <div key={index} className={`message-container ${msg.user ? 'user' : 'bot'}`}>
-              <div className={`message ${msg.user ? 'user' : 'bot'}`}>
+            <div
+              key={index}
+              className={`message-container ${msg.user ? "user" : "bot"}`}
+            >
+              <div className={`message ${msg.user ? "user" : "bot"}`}>
                 {msg.text}
               </div>
             </div>

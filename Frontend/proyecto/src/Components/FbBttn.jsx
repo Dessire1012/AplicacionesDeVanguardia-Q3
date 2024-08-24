@@ -1,6 +1,6 @@
-import React from 'react';
-import './Styles/FbBttn.css';
-import { FaFacebookF } from 'react-icons/fa';
+import React from "react";
+import "./Styles/FbBttn.css";
+import { FaFacebookF } from "react-icons/fa";
 
 function FbBttn() {
   return (

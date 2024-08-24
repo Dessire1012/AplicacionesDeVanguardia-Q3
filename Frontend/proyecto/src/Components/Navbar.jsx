@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
-import './Styles/Navbar.css';
-import { FaUser, FaCog, FaSignOutAlt } from 'react-icons/fa'; 
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Styles/Navbar.css";
+import { FaUser, FaCog, FaSignOutAlt, FaFilePdf } from "react-icons/fa";
+import Settings from "./Settings";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSilaboModalOpen, setIsSilaboModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const openSilaboModal = () => setIsSilaboModalOpen(true);
+  const closeSilaboModal = () => setIsSilaboModalOpen(false);
+
+  const openSettingsModal = () => setIsSettingsModalOpen(true);
+  const closeSettingsModal = () => setIsSettingsModalOpen(false);
 
   return (
     <nav className="navbar">
-      <div className="navbar-title">Chatbot</div>
+      <Link to="/chatbot" className="navbar-title">
+        Chatbot
+      </Link>
       <div className="navbar-user">
         <button onClick={toggleDropdown} className="user-button">
           <FaUser />
@@ -19,18 +29,43 @@ const Navbar = () => {
         {isDropdownOpen && (
           <ul className="dropdown-menu">
             <li>
-              <a href="#edit">
-                <FaCog style={{ marginRight: '8px' }} /> Settings
+              <a onClick={openSilaboModal}>
+                <FaFilePdf style={{ marginRight: "8px" }} /> Silabo
+              </a>
+            </li>
+            <hr className="menu-divider" />
+            <li>
+              <a onClick={openSettingsModal}>
+                <FaCog style={{ marginRight: "8px" }} /> Settings
               </a>
             </li>
             <li>
-              <a href="#logout">
-                <FaSignOutAlt style={{ marginRight: '8px' }} /> Log out
+              <a href="/">
+                <FaSignOutAlt style={{ marginRight: "8px" }} /> Log out
               </a>
             </li>
           </ul>
         )}
       </div>
+      {isSilaboModalOpen && (
+        <div className="modal">
+          <div
+            className="modal-content"
+            style={{ width: "90%", maxWidth: "800px" }}
+          >
+            <span className="close" onClick={closeSilaboModal}>
+              &times;
+            </span>
+            <iframe
+              src="/Silabo.pdf"
+              width="100%"
+              height="500px"
+              title="Silabo PDF"
+            />
+          </div>
+        </div>
+      )}
+      <Settings isOpen={isSettingsModalOpen} onClose={closeSettingsModal} />
     </nav>
   );
 };

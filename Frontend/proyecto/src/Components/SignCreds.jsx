@@ -1,5 +1,5 @@
-import React from 'react';
-import './Styles/SignCreds.css';
+import React from "react";
+import "./Styles/SignCreds.css";
 
 function SignCreds() {
   const handleSubmit = (e) => {
@@ -9,7 +9,9 @@ function SignCreds() {
   return (
     <form onSubmit={handleSubmit} className="form">
       <div className="form-group">
-        <label htmlFor="name" className="label">Name</label>
+        <label htmlFor="name" className="label">
+          Name
+        </label>
         <input
           type="name"
           id="name"
@@ -18,7 +20,9 @@ function SignCreds() {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="email" className="label">Email address</label>
+        <label htmlFor="email" className="label">
+          Email address
+        </label>
         <input
           type="email"
           id="email"
@@ -27,7 +31,9 @@ function SignCreds() {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="password" className="label">Password</label>
+        <label htmlFor="password" className="label">
+          Password
+        </label>
         <input
           type="password"
           id="password"
