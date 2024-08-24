@@ -16,6 +16,12 @@
   font-size: 20px;
 }
 
+.settings-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
 .settings-left {
   display: flex;
   flex-direction: column;
