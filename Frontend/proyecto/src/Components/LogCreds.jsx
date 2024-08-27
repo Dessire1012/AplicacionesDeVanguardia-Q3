@@ -8,7 +8,7 @@ function LogCreds() {
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <div className="form-group">
+      <div className="group">
         <label htmlFor="name" className="label">
           User name
         </label>
@@ -20,7 +20,7 @@ function LogCreds() {
         />
       </div>
 
-      <div className="form-group">
+      <div className="group">
         <label htmlFor="password" className="label">
           Password
         </label>
