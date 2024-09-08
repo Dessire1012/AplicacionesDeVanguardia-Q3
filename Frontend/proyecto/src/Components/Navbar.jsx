@@ -16,6 +16,7 @@ const Navbar = ({ userName }) => {
 
   const openSettingsModal = () => setIsSettingsModalOpen(true);
   const closeSettingsModal = () => setIsSettingsModalOpen(false);
+  //aasdasd
 
   return (
     <nav className="navbar">
