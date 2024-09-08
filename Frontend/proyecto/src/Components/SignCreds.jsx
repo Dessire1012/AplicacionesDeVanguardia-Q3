@@ -1,14 +1,19 @@
 import React from "react";
 import "./Styles/SignCreds.css";
 
-function SignCreds() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
+function SignCreds({
+  name,
+  setName,
+  email,
+  setEmail,
+  password,
+  setPassword,
+  onSubmit,
+  errorMessage,
+}) {
   return (
-    <form onSubmit={handleSubmit} className="form">
-      <div className="form-group">
+    <form onSubmit={onSubmit} className="form">
+      <div className="group">
         <label htmlFor="name" className="label">
           Name
         </label>
@@ -16,21 +21,27 @@ function SignCreds() {
           type="name"
           id="name"
           placeholder="Enter name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="input"
         />
       </div>
-      <div className="form-group">
+
+      <div className="group">
         <label htmlFor="email" className="label">
-          Email address
+          Email
         </label>
         <input
           type="email"
           id="email"
           placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="input"
         />
       </div>
-      <div className="form-group">
+
+      <div className="group">
         <label htmlFor="password" className="label">
           Password
         </label>
@@ -38,15 +49,19 @@ function SignCreds() {
           type="password"
           id="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="input"
         />
       </div>
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <button type="submit" className="button">
         Sign In
       </button>
 
-      <a href="faceID">Use Face ID to Sign In</a>
+      <a href="faceID">Use Face ID to Log In</a>
     </form>
   );
 }

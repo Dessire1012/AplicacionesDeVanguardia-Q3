@@ -1,10 +1,30 @@
 import "./Styles/Login.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cielo from "../Imagenes/Cielo.jpg";
 import LogCreds from "../Components/LogCreds";
 import FbBttn from "../Components/FbBttn";
 import GBttn from "../Components/GBttn";
+import { loginUser } from "../Backend/API";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await loginUser({ email, password });
+      console.log("Login successful:", data);
+      navigate("/chatbot");
+    } catch (error) {
+      console.error("Login failed:", error);
+      setErrorMessage("Incorrect email or password.");
+    }
+  };
+
   return (
     <div className="full-container">
       <div className="white-container">
@@ -16,8 +36,16 @@ function Login() {
           <div className="sub-title">
             <h1>Welcome Back!</h1>
           </div>
+
           <div className="logcreds-container">
-            <LogCreds />
+            <LogCreds
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              onSubmit={handleLogin}
+              errorMessage={errorMessage}
+            />
           </div>
           <div className="or-section">
             <div className="line"></div>
