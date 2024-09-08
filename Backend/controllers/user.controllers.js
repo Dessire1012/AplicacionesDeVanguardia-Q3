@@ -65,44 +65,48 @@ async function login(req, res) {
     }
 
     if (errorMessages.length) {
-      res.status(HTTPCodes.BAD_REQUEST).send({ error: errorMessages });
+      return res.status(HTTPCodes.BAD_REQUEST).send({ error: errorMessages });
+    }
+
+    const credentials = await getCredentials(email);
+
+    if (!credentials) {
+      return res.status(HTTPCodes.UNAUTHORIZED).send({
+        error: "There isn't a user with this email",
+      });
+    }
+
+    const encryptedPassword = crypto
+      .pbkdf2Sync(password, credentials.salt, 30000, 64, "sha256")
+      .toString("base64");
+
+    if (encryptedPassword === credentials.password) {
+      const accessToken = jwt.sign(
+        { email },
+        process.env.TOKENKEY || "AS4D5FF6G78NHCV7X6X5C",
+        { expiresIn: "1d" }
+      );
+
+      const refreshToken = jwt.sign(
+        { email },
+        process.env.TOKENKEY || "AS4D5FF6G78NHCV7X6X5C",
+        { expiresIn: "1m" }
+      );
+
+      res.send({
+        accessToken,
+        refreshToken,
+        id: credentials.user_id, // Asegúrate de que `user_id` es correcto
+      });
     } else {
-      const [credentials] = await getCredentials(email);
-
-      const encryptedPassword = crypto
-        .pbkdf2Sync(password, credentials.salt, 30000, 64, "sha256")
-        .toString("base64");
-
-      if (encryptedPassword === credentials.password) {
-        const accessToken = jwt.sign(
-          { email },
-          process.env.TOKENKEY || "AS4D5FF6G78NHCV7X6X5C",
-          {
-            expiresIn: "1d",
-          }
-        );
-
-        const refreshToken = jwt.sign(
-          { email },
-          process.env.TOKENKEY || "AS4D5FF6G78NHCV7X6X5C",
-          {
-            expiresIn: "1m",
-          }
-        );
-        res.send({
-          accessToken,
-          refreshToken,
-          id: credentials.id,
-        });
-      } else {
-        res.status(HTTPCodes.UNAUTHORIZED).send({
-          error: "Password incorrect",
-        });
-      }
+      res.status(HTTPCodes.UNAUTHORIZED).send({
+        error: "Password incorrect",
+      });
     }
   } catch (e) {
+    console.error("Login error:", e);
     res.status(HTTPCodes.INTERNAL_SERVER_ERROR).send({
-      error: "There isn't a user with this email",
+      error: "There was an error processing your request",
     });
   }
 }

@@ -18,7 +18,8 @@ function Login() {
     try {
       const data = await loginUser({ email, password });
       console.log("Login successful:", data);
-      navigate("/chatbot");
+      const userId = data.id;
+      navigate("/chatbot", { state: { userId: userId } });
     } catch (error) {
       console.error("Login failed:", error);
       setErrorMessage("Incorrect email or password.");
@@ -36,7 +37,6 @@ function Login() {
           <div className="sub-title">
             <h1>Welcome Back!</h1>
           </div>
-
           <div className="logcreds-container">
             <LogCreds
               email={email}

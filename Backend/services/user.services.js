@@ -22,12 +22,14 @@ testConnection();
 
 const registerUser = async (user) => {
   try {
-    return await knex("users").insert({
+    const [userId] = await knex("users").insert({
       name: user.name,
       email: user.email,
+      photo: user.photo,
       password: user.encryptedPassword,
       salt: user.salt,
     });
+    return userId;
   } catch (error) {
     console.error("Error registering user:", error);
     throw error;
@@ -39,13 +41,10 @@ const getCredentials = async (email) => {
     let credentials = await knex
       .select("password", "salt", "user_id")
       .from("users")
-      .where("email", email);
+      .where("email", email)
+      .first();
 
-    if (!credentials) {
-      throw new Error("No credentials found for this email");
-    }
-
-    return credentials;
+    return credentials || null;
   } catch (error) {
     console.error("Error retrieving credentials:", error);
     throw error;
@@ -62,8 +61,28 @@ async function getAllUsers() {
   }
 }
 
+const getCredentialsById = async (id) => {
+  try {
+    let user = await knex
+      .select("user_id", "name", "email", "photo")
+      .from("users")
+      .where("user_id", id)
+      .first();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
+  } catch (error) {
+    console.error("Error retrieving user by ID:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   registerUser,
   getCredentials,
   getAllUsers,
+  getCredentialsById,
 };
