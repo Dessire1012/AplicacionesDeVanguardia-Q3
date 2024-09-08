@@ -1,29 +1,40 @@
 const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();
 const passport = require("passport");
 const session = require("express-session");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const crypto = require("crypto");
-
 const fs = require("fs");
 const YAML = require("yaml");
 const swaggerUi = require("swagger-ui-express");
+const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
+const app = express();
+
+// Swagger setup
 const file = fs.readFileSync("./swagger.yaml", "utf8");
 const swaggerDocument = YAML.parse(file);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-require("dotenv").config();
-
+// Middleware setup
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(
+  session({
+    secret: "your-secret-key", // Cambia esto por una clave secreta en producción
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, sameSite: "Lax" }, // Cambia `secure` a `true` si usas HTTPS
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
+// Import routes and services
 const userRouter = require("./routes/user.routes");
-
-app.use("/user", userRouter);
-
 const {
   registerUser,
   getCredentials,
@@ -31,18 +42,10 @@ const {
   getCredentialsById,
 } = require("./services/user.services");
 
-app.use(
-  session({
-    secret: "your-secret-key",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true },
-  })
-);
+// Routes
+app.use("/user", userRouter);
 
-app.use(passport.initialize());
-app.use(passport.session());
-
+// Passport configuration
 passport.use(
   new GoogleStrategy(
     {
@@ -101,6 +104,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+// Authentication routes
 app.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -110,22 +114,35 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
+    const userId = req.user.user_id;
+    console.log("Setting cookie with userId:", userId);
+    res.cookie("userId", userId, {
+      httpOnly: false,
+      secure: false,
+      sameSite: "Lax",
+    });
     res.redirect("http://localhost:3000/chatbot");
   }
 );
 
+// Profile route
 app.get("/profile", (req, res) => {
   if (req.isAuthenticated()) {
-    res.json(req.user);
+    res.json({
+      ...req.user,
+      userId: req.cookies.userId,
+    });
   } else {
     res.redirect("/");
   }
 });
 
+// Home route
 app.get("/", (req, res) => {
   res.send("Welcome to the home page!");
 });
 
+// Start the server
 app.listen(3001, () => {
   console.log("Server started on http://localhost:3001");
 });

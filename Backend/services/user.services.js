@@ -61,24 +61,24 @@ async function getAllUsers() {
   }
 }
 
-const getCredentialsById = async (id) => {
+async function getCredentialsById(userId) {
   try {
-    let user = await knex
-      .select("user_id", "name", "email", "photo")
-      .from("users")
-      .where("user_id", id)
-      .first();
-
+    console.log("Searching for user with ID:", userId);
+    const user = await knex("users").where({ user_id: userId }).first();
+    console.log(
+      "Query executed:",
+      knex("users").where({ user_id: userId }).toString()
+    );
+    console.log("User found:", user);
     if (!user) {
       throw new Error("User not found");
     }
-
     return user;
   } catch (error) {
     console.error("Error retrieving user by ID:", error);
     throw error;
   }
-};
+}
 
 module.exports = {
   registerUser,

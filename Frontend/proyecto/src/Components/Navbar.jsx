@@ -4,7 +4,7 @@ import "./Styles/Navbar.css";
 import { FaUser, FaCog, FaSignOutAlt, FaFilePdf } from "react-icons/fa";
 import Settings from "./Settings";
 
-const Navbar = () => {
+const Navbar = ({ userName }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSilaboModalOpen, setIsSilaboModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
@@ -23,6 +23,8 @@ const Navbar = () => {
         Chatbot
       </Link>
       <div className="navbar-user">
+        <h4 className="welcome">Welcome back,</h4>
+        {userName && <span className="user-name">{userName}</span>}
         <button onClick={toggleDropdown} className="user-button">
           <FaUser />
         </button>

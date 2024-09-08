@@ -1,11 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import { useLocation } from "react-router-dom";
 import "./Styles/Chatbot.css";
 import { FaPaperPlane, FaEllipsisV } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
+import { getUserById } from "../Backend/API";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [id, setId] = useState(null);
+  const [userName, setUserName] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    const propUserId = location.state?.userId;
+    const propGoogleId = location.state?.googleId;
+
+    if (propUserId) {
+      setId(propUserId);
+    } else if (propGoogleId) {
+      setId(propGoogleId);
+    } else {
+      const cookieUserId = Cookies.get("userId");
+      const cookieGoogleId = Cookies.get("googleId");
+
+      if (cookieUserId) {
+        setId(cookieUserId);
+      } else if (cookieGoogleId) {
+        setId(cookieGoogleId);
+      }
+    }
+
+    // Cleanup function to clear cookies when the component unmounts
+    return () => {
+      Cookies.remove("userId");
+      Cookies.remove("googleId");
+      console.log("Cookies removed");
+    };
+  }, [location.state]);
+
+  useEffect(() => {
+    if (id) {
+      getUserById(id)
+        .then((data) => {
+          if (data.name) {
+            setUserName(data.name);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, [id]);
 
   const handleSend = () => {
     if (input.trim()) {
@@ -22,7 +69,9 @@ const Chatbot = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar userName={userName} />
+      {id ? <p>Welcome, User ID: {id}</p> : <p>Loading...</p>}
+      {userName ? <p>Welcome, User : {userName}</p> : <p>Loading...</p>}
       <div className="chatbot">
         <div className="chatbot-messages">
           {messages.map((msg, index) => (

@@ -7,6 +7,7 @@ const {
   registerUser,
   getCredentials,
   getAllUsers,
+  getCredentialsById,
 } = require("../services/user.services");
 
 async function register(req, res) {
@@ -122,8 +123,26 @@ async function getUsers(req, res) {
   }
 }
 
+async function getUser(req, res) {
+  const { id } = req.query;
+  console.log("Received ID:", id);
+  try {
+    const user = await getCredentialsById(id);
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    res.send(user);
+  } catch (e) {
+    console.error("Error fetching user:", e);
+    res.status(500).send({
+      error: "There was an error processing your request",
+    });
+  }
+}
+
 module.exports = {
   register,
   login,
   getUsers,
+  getUser,
 };

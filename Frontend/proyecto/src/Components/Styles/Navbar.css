@@ -13,13 +13,15 @@
 .navbar-title {
   color: #fff;
   font-size: 1.5rem;
-  text-align: center;
+  text-align: left;
   flex: 1;
   font-weight: bold;
   text-decoration: none;
 }
 
 .navbar-user {
+  display: flex;
+  align-items: center;
   position: relative;
   margin-left: auto;
 }

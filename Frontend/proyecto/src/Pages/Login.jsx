@@ -5,6 +5,7 @@ import Cielo from "../Imagenes/Cielo.jpg";
 import LogCreds from "../Components/LogCreds";
 import FbBttn from "../Components/FbBttn";
 import GBttn from "../Components/GBttn";
+import Cookies from "js-cookie";
 import { loginUser } from "../Backend/API";
 
 function Login() {
@@ -19,6 +20,7 @@ function Login() {
       const data = await loginUser({ email, password });
       console.log("Login successful:", data);
       const userId = data.id;
+      Cookies.set("userId", userId);
       navigate("/chatbot", { state: { userId: userId } });
     } catch (error) {
       console.error("Login failed:", error);
