@@ -97,7 +97,7 @@ async function login(req, res) {
       res.send({
         accessToken,
         refreshToken,
-        id: credentials.user_id, // Asegúrate de que `user_id` es correcto
+        id: credentials.user_id,
       });
     } else {
       res.status(HTTPCodes.UNAUTHORIZED).send({

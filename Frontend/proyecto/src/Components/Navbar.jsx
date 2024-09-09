@@ -3,59 +3,69 @@ import { Link } from "react-router-dom";
 import "./Styles/Navbar.css";
 import { FaUser, FaCog, FaSignOutAlt, FaFilePdf } from "react-icons/fa";
 import Settings from "./Settings";
+import iconoChatbot from "../Imagenes/chat-bot.png";
 
-const Navbar = ({ userName }) => {
+const Navbar = ({ userName, userPhoto }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSilaboModalOpen, setIsSilaboModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const openSilaboModal = () => setIsSilaboModalOpen(true);
+  const openSilaboModal = () => {
+    setIsDropdownOpen(false);
+    setIsSilaboModalOpen(true);
+  };
+
   const closeSilaboModal = () => setIsSilaboModalOpen(false);
 
-  const openSettingsModal = () => setIsSettingsModalOpen(true);
+  const openSettingsModal = () => {
+    setIsDropdownOpen(false);
+    setIsSettingsModalOpen(true);
+  };
+
   const closeSettingsModal = () => setIsSettingsModalOpen(false);
-  //aasdasd
 
   return (
     <nav className="navbar">
       <Link to="/chatbot" className="navbar-title">
-        Chatbot
+        <img src={iconoChatbot} alt="Chatbot Icon" className="icono-chatbot" />
+        Chatbot Vanguard
       </Link>
       <div className="navbar-user">
         <h4 className="welcome">Welcome back,</h4>
         {userName && <span className="user-name">{userName}</span>}
         <button onClick={toggleDropdown} className="user-button">
-          <FaUser />
+          {userPhoto ? (
+            <img src={userPhoto} alt="User" className="user-photo" />
+          ) : (
+            <FaUser />
+          )}
         </button>
         {isDropdownOpen && (
           <ul className="dropdown-menu">
             <li>
-              <a onClick={openSilaboModal}>
+              <button onClick={openSilaboModal} className="dropdown-button">
                 <FaFilePdf style={{ marginRight: "8px" }} /> Silabo
-              </a>
+              </button>
             </li>
             <hr className="menu-divider" />
             <li>
-              <a onClick={openSettingsModal}>
+              <button onClick={openSettingsModal} className="dropdown-button">
                 <FaCog style={{ marginRight: "8px" }} /> Settings
-              </a>
+              </button>
             </li>
             <li>
-              <a href="/">
+              <Link to="/" className="dropdown-button">
                 <FaSignOutAlt style={{ marginRight: "8px" }} /> Log out
-              </a>
+              </Link>
             </li>
           </ul>
         )}
       </div>
       {isSilaboModalOpen && (
         <div className="modal">
-          <div
-            className="modal-content"
-            style={{ width: "90%", maxWidth: "800px" }}
-          >
+          <div className="modal-content">
             <span className="close" onClick={closeSilaboModal}>
               &times;
             </span>

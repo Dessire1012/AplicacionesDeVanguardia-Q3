@@ -16,6 +16,10 @@ const Settings = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleNoAction = (event) => {
+    event.preventDefault();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -59,8 +63,12 @@ const Settings = ({ isOpen, onClose }) => {
                 <input type="text" name="surname" placeholder="Value" />
               </label>
               <div className="right-buttons">
-                <button className="edit-face-id">Edit Face ID</button>
-                <button className="delete-user">Delete User</button>
+                <button className="edit-face-id" onClick={handleNoAction}>
+                  Edit Face ID
+                </button>
+                <button className="delete-user" onClick={handleNoAction}>
+                  Delete User
+                </button>
                 <button type="submit" className="done-button">
                   Done
                 </button>
